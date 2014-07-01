@@ -1,13 +1,24 @@
 package main
 
+import "math/rand"
+
 func orderedDeck() []card {
-	cards := make([]card, 0, 52)
+	cards := make([]card, 0, len(suits)*len(ranks))
 	for _, s := range suits {
 		for _, r := range ranks {
 			cards = append(cards, card{s, r})
 		}
 	}
 	return cards
+}
+
+func shuffledDeck() []card {
+	src := orderedDeck()
+	dest := make([]card, len(src))
+	for i, v := range rand.Perm(len(src)) {
+		dest[i] = src[v]
+	}
+	return dest
 }
 
 type suit uint
